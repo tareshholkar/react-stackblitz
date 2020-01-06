@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {make_Array} from '../redux/action/action' 
 
 class Register extends Component {
     constructor(props) {
@@ -21,13 +23,14 @@ class Register extends Component {
             "lastName": this.refs.lname.value,
             "balance": this.refs.balance.value
         }
+        this.props.get_Array(tempUser);
 
-        let tempValues = [...this.state.values];
-        tempValues.push(tempUser)
-        console.log('temValues', tempValues)
-        this.setState({
-            values: [...tempValues]
-        }, () => { console.log(this.state.values) });      
+        // let tempValues = [...this.state.values];
+        // tempValues.push(tempUser)
+        // console.log('temValues', tempValues)
+        // this.setState({
+        //     values: [...tempValues]
+        // }, () => { console.log(this.state.values) });      
         this.refs.reset.reset();
     }
 
@@ -46,42 +49,22 @@ class Register extends Component {
                     </form>
                 </div>
 
-                <div className="table-responsive">
-                    <table className="table table-striped">
-                        <thead>
-                            <tr>                               
-                                <th>Employee ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Balance</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>007</td>
-                                <td>James</td>
-                                <td>Bond</td>
-                                <td>7000</td>
-                            </tr>                            
-                            { this.state.values.map(c =>{
-                                   return (
-                                    <tr key={c}>                                                                        
-                                        <td>{c.employeeId}</td>
-                                        <td>{c.firstName}</td>
-                                        <td>{c.lastName}</td>
-                                        <td>{c.balance}</td>
-                                    </tr>
-                                        )
-                                    })
-                                   }              
-                               
-                        </tbody>
-                    </table>
-                </div>
+                
             </div>
         );
     }
 }
+ 
 
 
-export default Register;
+function mapDispatchToProps(dispatch){
+    return {      
+        get_Array : bindActionCreators(make_Array, dispatch),
+        }      
+}
+  
+
+export default connect(null,mapDispatchToProps)
+(Register);
+
+

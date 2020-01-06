@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 
 
 class Details extends Component{  
-
-    sendData = () => {
-        this.props.parentCallback("Hey Popsie, How’s it going?");
-     }
+    
+   
     render(){
+        let values=[];
+        values = this.props.array;
     return(
         <div className="container">
             
@@ -19,19 +20,18 @@ class Details extends Component{
                                     <th>Balance</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>007</td>
-                                    <td>James</td>
-                                    <td>Bond</td>
-                                    <td>7000</td>
-                                </tr>                                
-                                <tr>
-                                    <td>{this.props.empid}</td>
-                                    <td>{this.props.fname}</td>
-                                    <td>{this.props.lname}</td>
-                                    <td>{this.props.balance}</td>
-                                </tr>
+                            <tbody>                                                              
+                            { values.map(c =>{
+                                   return (
+                                    <tr key={c.employeeId}>                                                                        
+                                        <td>{c.employeeId}</td>
+                                        <td>{c.firstName}</td>
+                                        <td>{c.lastName}</td>
+                                        <td>{c.balance}</td>
+                                    </tr>
+                                        )
+                                    })
+                                   }             
                             </tbody>
                 </table>
             
@@ -40,4 +40,12 @@ class Details extends Component{
     }
 };
 
-export default Details;
+
+function mapStateToProps(state){
+    return {      
+          array:state.mainReducer.array  
+        }      
+}
+
+export default connect(mapStateToProps,null)
+(Details);

@@ -1,0 +1,27 @@
+.container{
+    
+    border-collapse: collapse;
+   
+}
+.container .row{
+    margin: 0 auto;    
+}
+.col-sm-4{
+    /* border: 1px solid #dbdbdb;
+    text-align: center;
+    display: inline-block;    */
+    text-align: center;
+    padding: 20px 0;
+    width: 200px;
+    background: #fff;
+    height: 275px;
+    display: inline-block;
+    margin: 0 20px 20px;
+    border: 1px solid #f8f8f8;
+}
+
+
+.container .col-sm-4 .details img{
+    height: 150px;
+    
+}
