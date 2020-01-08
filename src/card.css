@@ -1,10 +1,16 @@
 .container{
     
     border-collapse: collapse;
-   
+    background: #f8f8f8;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.landing{
+    text-align: center;
 }
 .container .row{
-    margin: 0 auto;    
+    margin: 0 95px;    
 }
 .col-sm-4{
     /* border: 1px solid #dbdbdb;
@@ -19,9 +25,41 @@
     margin: 0 20px 20px;
     border: 1px solid #f8f8f8;
 }
-
-
 .container .col-sm-4 .details img{
     height: 150px;
     
+}
+.oops{
+    margin: 0px !important;
+}
+.register{
+    margin-top: 15px;   
+}
+.footer{
+    text-align: center;
+}
+.Header{
+    text-align: center;
+}
+.errorMsg{
+    color: red;
+}
+.table {
+    width: 84%;
+    margin: 0 auto; 
+}
+
+
+@media only screen and (max-width: 600px) {
+    .container .row{
+        margin: 0 30px;    
+    }
+}
+@media (min-width: 768px){
+.form-inline .form-control {   
+    margin-left: 20px;
+    }
+.filter-btn{
+    margin-left: 20px;
+    }
 }

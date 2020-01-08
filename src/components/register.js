@@ -10,11 +10,86 @@ class Register extends Component {
             employeeId: '',
             firstName: '',
             lastName: '',
-            balance: '',
-            values: []
+            balance: '',            
+            fields: {},
+            errors: {}
         }
+        this.handleChange = this.handleChange.bind(this);
+        // this.submituserRegistrationForm = this.submituserRegistrationForm.bind(this);
     }
 
+    handleChange(e) {
+        let fields = this.state.fields;
+        fields[e.target.name] = e.target.value;
+        this.setState({
+          fields
+        });
+  
+      }
+
+    //   submituserRegistrationForm(e) {
+    //     e.preventDefault();
+       
+  
+    //   }
+
+      validateForm() {
+
+        let fields = this.state.fields;
+        let errors = {};
+        let formIsValid = true;
+
+        if (!fields["empid"]) {
+            formIsValid = false;
+            errors["empid"] = "*Please enter your Employee ID.";
+        }    
+        if (typeof fields["empid"] !== "undefined") {
+            if (!fields["empid"].match(/^[0-9]*$/)) {
+              formIsValid = false;
+              errors["empid"] = "*Please enter valid Employee ID.";
+            }
+        }
+
+        
+        if (!fields["fname"]) {
+            formIsValid = false;
+            errors["fname"] = "*Please enter your First Name.";
+        }
+        if (typeof fields["fname"] !== "undefined") {
+            if (!fields["fname"].match(/^[a-zA-Z ]*$/)) {
+            formIsValid = false;
+            errors["fname"] = "*Please enter alphabet characters only.";
+            }
+        }
+
+        if (!fields["lname"]) {
+            formIsValid = false;
+            errors["lname"] = "*Please enter your Last Name.";
+        }
+        if (typeof fields["lname"] !== "undefined") {
+            if (!fields["lname"].match(/^[a-zA-Z ]*$/)) {
+            formIsValid = false;
+            errors["lname"] = "*Please enter alphabet characters only.";
+            }
+        }
+
+        if (!fields["balance"]) {
+            formIsValid = false;
+            errors["balance"] = "*Please enter your Balance.";
+        }    
+        if (typeof fields["balance"] !== "undefined") {
+            if (!fields["balance"].match(/^[0-9]*$/)) {
+              formIsValid = false;
+              errors["balance"] = "*Please enter valid Balance.";
+            }
+        }
+        this.setState({
+            errors: errors            
+          });
+          console.log("errors",this.state.errors.empid);
+          return formIsValid;
+
+    }
     clicked = (e) => {
         e.preventDefault();
         let tempUser = {
@@ -23,14 +98,18 @@ class Register extends Component {
             "lastName": this.refs.lname.value,
             "balance": this.refs.balance.value
         }
-        this.props.get_Array(tempUser);
+        if (this.validateForm()) {
+            this.props.get_Array(tempUser); 
 
-        // let tempValues = [...this.state.values];
-        // tempValues.push(tempUser)
-        // console.log('temValues', tempValues)
-        // this.setState({
-        //     values: [...tempValues]
-        // }, () => { console.log(this.state.values) });      
+            let fields = {};
+            fields["empid"] = "";
+            fields["fname"] = "";
+            fields["lname"] = "";
+            fields["balance"] = "";
+            this.setState({fields:fields});
+            alert("Form submitted");
+        }
+          
         this.refs.reset.reset();
     }
 
@@ -38,13 +117,18 @@ class Register extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <form ref="reset" className="col-md-3">
+                    <form ref="reset" className="col-md-3" onSubmit= {this.clicked}>
                         <div className="form-group">
-                            <input type="number" ref="empid" className="form-control" name="empid" id="empid" placeholder="Employee ID"></input>
-                            <input type="text" ref="fname" className="form-control" name="fname" id="fname" placeholder="First Name"></input>
-                            <input type="text" ref="lname" className="form-control" name="lname" id="lname" placeholder="Last Name"></input>
-                            <input type="number" ref="balance" className="form-control" name="balance" id="balance" placeholder="Balance"></input>
+                            <input type="text" ref="empid" className="form-control register" name="empid" id="empid" placeholder="Employee ID"  value={this.state.fields.empid} onChange={this.handleChange}></input>
+                            <span className="errorMsg">{this.state.errors.empid}</span>
+                            <input type="text" ref="fname" className="form-control register" name="fname" id="fname" placeholder="First Name" value={this.state.fields.fname} onChange={this.handleChange}></input>
+                            <span className="errorMsg">{this.state.errors.fname}</span>
+                            <input type="text" ref="lname" className="form-control register" name="lname" id="lname" placeholder="Last Name" value={this.state.fields.lname} onChange={this.handleChange}></input>
+                            <span className="errorMsg">{this.state.errors.lname}</span>
+                            <input type="text" ref="balance" className="form-control register" name="balance" id="balance" placeholder="Balance" value={this.state.fields.balance} onChange={this.handleChange}></input>
+                            <span className="errorMsg">{this.state.errors.balance}</span>
                         </div>
+                        
                         <button type="submit" className="btn btn-primary" onClick={(e) => { this.clicked(e); }}>Register</button>
                     </form>
                 </div>
