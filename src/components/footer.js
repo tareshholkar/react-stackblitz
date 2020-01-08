@@ -1,15 +1,15 @@
 import React from "react";
 
 
-const Header = () =>{
+const Footer = () =>{
     return(
-        <div className="container Header">  
+        <div className="container footer">  
              <div className="row">
-                <h3>Header</h3>
                 <hr />
+                <h3>Footer</h3>
             </div>         
         </div>
     );
 }
 
-export default Header;
+export default Footer;

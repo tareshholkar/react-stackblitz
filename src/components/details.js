@@ -10,9 +10,9 @@ class Details extends Component{
         values = this.props.array;
     return(
         <div className="container">
-            
+            <div className="details">
                 <table className="table table-striped">
-                <thead>
+                            <thead>
                                 <tr>
                                     <th>Employee ID</th>
                                     <th>First Name</th>
@@ -35,6 +35,8 @@ class Details extends Component{
                             </tbody>
                 </table>
             
+
+            </div>
         </div>
         );
     }
