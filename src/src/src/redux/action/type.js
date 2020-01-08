@@ -1,0 +1,1 @@
+export const TO_GET_ARRAY = 'TO_GET_ARRAY';
